@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二年级500以内口算题</title>
+    <style>
+        @media print {
+            button { display: none; }
+            body { background: white; }
+            .container { width: 100%; margin: 0; padding: 0; }
+        }
+        body {
+            font-family: "KaiTi", "楷体", "SimSun", "宋体", serif;
+            max-width: 850px;
+            margin: 20px auto;
+            background: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding-top: 1px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-family: "SimHei", "黑体", sans-serif;
+        }
+        .problem-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+        .problem {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .btn-group {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            margin: 0 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.print-btn {
+            background-color: #2196F3;
+        }
+        button.print-btn:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn-group">
+        <button onclick="generateProblems()">🔄 刷新题目</button>
+        <button class="print-btn" onclick="window.print()">🖨️ 打印练习</button>
+    </div>
+    
+    <div class="container">
+        <h1 id="title">二年级口算每日练 (500以内)</h1>
+        <div id="problems"></div>
+	<div id="extra-problems"></div>
+    </div>
+
+    <script>
+        function getDateString() {
+            const now = new Date();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${month}${day}`;
+        }
+
+        // 计算表达式结果
+        function calculateExpr(expr) {
+            try {
+                const safeExpr = expr.replace(/×/g, '*').replace(/÷/g, '/');
+                return eval(safeExpr);
+            } catch (e) {
+                return 0;
+            }
+        }
+
+        // 验证结果是否在有效范围内 (0 到 500,且为整数)
+        function validResult(expr) {
+            try {
+                const result = calculateExpr(expr);
+                // 结果必须是整数,且在 0 到 500 之间
+                return typeof result === 'number' && result >= 0 && result <= 500 && Number.isInteger(result);
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // 生成混合运算 (三元算式)
+        function generateMixedProblem() {
+            const problems = [];
+            const answers = [];
+            let attempts = 0;
+            while (problems.length < 20 && attempts < 1000) {
+                attempts++;
+                const a = randomInt(20, 200);
+                const b = randomInt(10, 150);
+                const c = randomInt(10, 100);
+                const ops = ['+', '-'];
+                const op1 = ops[randomInt(0, 1)];
+                const op2 = ops[randomInt(0, 1)];
+                const expr = `${a}${op1}${b}${op2}${c}`;
+                
+                if (validResult(expr)) {
+                    problems.push(expr + ' = ');
+                    answers.push(calculateExpr(expr));
+                }
+            }
+            return { problems, answers };
+        }
+
+        // 生成普通运算 【题型比例: 加法10% 减法10% 乘法40% 除法40%】
+        function generateNormalProblems() {
+            const problems = [];
+            const answers = [];
+            let attempts = 0;
+            while (problems.length < 80 && attempts < 2000) {
+                attempts++;
+                const rand = Math.random() * 100;
+                let op, expr;
+
+                // 【关键】题型比例: 加法10% 减法10% 乘法40% 除法40%
+                if (rand < 10) { // 加法 10%
+                    op = '+';
+                    const a = randomInt(20, 150);
+                    const b = randomInt(20, 150);
+                    expr = `${a} + ${b}`;
+                } else if (rand < 20) { // 减法 10%
+                    op = '-';
+                    const a = randomInt(30, 300);
+                    const b = randomInt(20, 280);
+                    const max = Math.max(a, b);
+                    const min = Math.min(a, b);
+                    expr = `${max} - ${min}`;
+                } else if (rand < 60) { // 乘法 40%
+                    op = '×';
+                    const a = randomInt(2, 20); 
+                    const b = randomInt(2, 15);
+                    expr = `${a} × ${b}`;
+                } else { // 除法 40%
+                    op = '÷';
+                    const b = randomInt(2, 12);
+                    const quotient = randomInt(2, 25); // 商的范围
+                    const a = b * quotient;
+                    if (a <= 500) { // 确保被除数不超过500
+                        expr = `${a} ÷ ${b}`;
+                    } else {
+                        continue; // 跳过这次循环
+                    }
+                }
+
+                if (validResult(expr)) {
+                    problems.push(expr + ' = ');
+                    answers.push(calculateExpr(expr));
+                }
+            }
+            return { problems, answers };
+        }
+
+        function generateProblems() {
+            const dateStr = getDateString();
+            document.getElementById('title').textContent = `二年级口算题 (500以内) - ${dateStr}`;
+
+            const mixed = generateMixedProblem();
+            const normal = generateNormalProblems();
+
+            // 补足数量
+            while (mixed.problems.length < 20) {
+                mixed.problems.push("50 + 50 + 50 = ");
+                mixed.answers.push(150);
+            }
+            while (normal.problems.length < 80) {
+                normal.problems.push("50 + 50 = ");
+                normal.answers.push(100);
+            }
+
+            const allProblems = [];
+            const allAnswers = [];
+            let mIdx = 0, nIdx = 0;
+
+            for (let i = 0; i < 100; i++) {
+                // 每 5 题插入 1 个混合运算题目
+                if (i % 5 === 0 && mIdx < 20) {
+                    allProblems.push(mixed.problems[mIdx]);
+                    allAnswers.push(mixed.answers[mIdx]);
+                    mIdx++;
+                } else {
+                    allProblems.push(normal.problems[nIdx]);
+                    allAnswers.push(normal.answers[nIdx]);
+                    nIdx++;
+                }
+            }
+
+            // 渲染HTML
+            let html = '';
+            for (let i = 0; i < 100; i += 5) {
+                html += '<div class="problem-line">';
+                for (let j = 0; j < 5; j++) {
+                    const p = allProblems[i + j] || "";
+                    html += `<div class="problem">${p}</div>`;
+                }
+                html += '</div>';
+            }
+            document.getElementById('problems').innerHTML = html;
+
+            // 控制台打印答案
+            console.clear();
+            console.log(`二年级口算题 (500以内) - ${dateStr}`);
+            console.log('-----------------------------------');
+            
+            for(let i = 0; i < 100; i += 5) {
+                const rowAnswers = allAnswers.slice(i, i + 5);
+                // 使用制表符对齐,方便查看
+                console.log(rowAnswers.join('\t\t')); 
+            }
+            console.log('-----------------------------------');
+        }
+
+        // 初始化
+        window.onload = generateProblems;
+    </script>
+</body>
+</html>
