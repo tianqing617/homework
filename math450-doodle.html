@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&amp;family=Ma+Shan+Zheng&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
     <style data-purpose="page-layout">
         body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
             background-color: #f8f9fa;
             background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
             font-family: "Nunito", sans-serif;
@@ -39,7 +43,7 @@
                 margin: 0;
                 width: 100%;
             }
-            .no-print {
+            .no-print, button {
                 display: none;
             }
         }
@@ -96,45 +100,58 @@
             position: absolute;
             pointer-events: none;
         }
-        .dashed-divider {
-            border-top: 3px dashed #2d2a26;
-            margin: 20px 0;
-            width: 100%;
-        }
-        .math-text {
+        /* Style for the grid container from JS */
+        #problems {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             font-family: 'Nunito', sans-serif;
             font-size: 1.05rem;
             color: #1a1a1a;
             font-weight: 600;
         }
+        .problem-line {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+        }
+        /* Add dashed divider after the 15th row */
+        .problem-line:nth-child(15) {
+            border-bottom: 3px dashed #2d2a26;
+            padding-bottom: 24px;
+            margin-bottom: 12px;
+        }
+        .problem {
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
-    <div class="page-container" id="printable-area">
-        <!-- Top Controls -->
-        <div class="no-print flex justify-center gap-4 mb-8">
-            <button class="hand-drawn-border px-6 py-2 flex items-center gap-3 hover:bg-orange-50 transition-colors shadow-sm" onclick="generateProblems()">
-                <svg fill="none" height="24" stroke="#a67c52" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
-                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-                    <path d="M21 3v5h-5"></path>
-                </svg>
-                <div class="text-left leading-tight">
-                    <div class="font-bold text-sm text-gray-800">刷新题目</div>
-                    <div class="text-xs text-gray-500">(Refresh)</div>
-                </div>
-            </button>
-            <button class="hand-drawn-border px-6 py-2 flex items-center gap-3 hover:bg-orange-50 transition-colors shadow-sm" onclick="window.print()">
-                <svg fill="none" height="24" stroke="#a67c52" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
-                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                    <rect height="8" width="12" x="6" y="14"></rect>
-                </svg>
-                <div class="text-left leading-tight">
-                    <div class="font-bold text-sm text-gray-800">打印练习</div>
-                    <div class="text-xs text-gray-500">(Print)</div>
-                </div>
-            </button>
+<!-- Top Controls -->
+<div class="no-print flex justify-center gap-4 mb-8">
+    <button class="hand-drawn-border px-6 py-2 flex items-center gap-3 hover:bg-orange-50 transition-colors shadow-sm" onclick="generateProblems()">
+        <svg fill="none" height="24" stroke="#a67c52" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
+        </svg>
+        <div class="text-left leading-tight">
+            <div class="font-bold text-sm text-gray-800">刷新题目</div>
+            <div class="text-xs text-gray-500">(Refresh)</div>
         </div>
+    </button>
+    <button class="hand-drawn-border px-6 py-2 flex items-center gap-3 hover:bg-orange-50 transition-colors shadow-sm" onclick="window.print()">
+        <svg fill="none" height="24" stroke="#a67c52" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect height="8" width="12" x="6" y="14"></rect>
+        </svg>
+        <div class="text-left leading-tight">
+            <div class="font-bold text-sm text-gray-800">打印练习</div>
+            <div class="text-xs text-gray-500">(Print)</div>
+        </div>
+    </button>
+</div>
+    <div class="page-container" id="printable-area">
 
         <!-- SVG Doodles -->
         <svg class="doodle" fill="none" style="top: 110px; left: 160px; width: 50px; height: 50px;" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -156,9 +173,6 @@
         <svg class="doodle" fill="none" style="top: 100px; left: 50px; width: 80px; height: 50px;" viewbox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 45C10 45 5 35 10 25C15 15 25 15 30 20C35 5 55 5 65 15C75 5 95 15 90 35C95 45 85 55 75 45L20 45Z" fill="white" stroke="#2d2a26" stroke-linejoin="round" stroke-width="3"></path>
         </svg>
-        <svg class="doodle" fill="none" style="top: 120px; right: 120px; width: 90px; height: 55px;" viewbox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 45C10 45 5 35 10 25C15 15 25 15 30 20C35 5 55 5 65 15C75 5 95 15 90 35C95 45 85 55 75 45L20 45Z" fill="white" stroke="#2d2a26" stroke-linejoin="round" stroke-width="3"></path>
-        </svg>
         <svg class="doodle" fill="none" style="top: 190px; left: 20px; width: 30px; height: 30px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
             <path d="M25 5L30 18H45L33 26L37 40L25 32L13 40L17 26L5 18H20L25 5Z" fill="#ffd54f" stroke="#2d2a26" stroke-linejoin="round" stroke-width="2"></path>
         </svg>
@@ -173,9 +187,6 @@
             <circle cx="25" cy="25" fill="#f5a623" r="15" stroke="#2d2a26" stroke-width="2"></circle>
             <path d="M5 25H10M40 25H45M25 5V10M25 40V45" stroke="#2d2a26" stroke-width="2"></path>
         </svg>
-        <svg class="doodle" fill="none" style="bottom: 120px; right: 20px; width: 25px; height: 25px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 10 L40 40 M10 40 L40 10" stroke="#7bacc0" stroke-linecap="round" stroke-width="4"></path>
-        </svg>
         <svg class="doodle" fill="none" style="bottom: 20px; left: 80px; width: 30px; height: 30px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
             <polygon fill="#f5a623" points="25,10 45,40 5,40" stroke="#2d2a26" stroke-linejoin="round" stroke-width="2"></polygon>
         </svg>
@@ -188,16 +199,12 @@
                 </h1>
             </div>
         </div>
-        
+
         <!-- Math Problems Grid -->
-        <div class="flex flex-col">
-            <div class="grid grid-cols-5 gap-x-6 gap-y-3 text-[1.05rem] math-text" id="grid-part-1" style="grid-template-rows: repeat(15, minmax(0, 1fr)); grid-auto-flow: column;"></div>
-            <div class="dashed-divider my-6 w-full"></div>
-            <div class="grid grid-cols-5 gap-x-6 gap-y-3 text-[1.05rem] math-text" id="grid-part-2" style="grid-template-rows: repeat(5, minmax(0, 1fr)); grid-auto-flow: column;"></div>
-        </div>
+        <div id="problems"></div>
     </div>
 
-    <script data-purpose="math-generator">
+    <script>
         function getDateString() {
             const now = new Date();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -219,6 +226,7 @@
         function validResult(expr) {
             try {
                 const result = calculateExpr(expr);
+                // 结果必须是整数,且在 0 到 450 之间
                 return typeof result === 'number' && result >= 0 && result <= 450 && Number.isInteger(result);
             } catch (e) {
                 return false;
@@ -242,10 +250,10 @@
                 const ops = ['+', '-'];
                 const op1 = ops[randomInt(0, 1)];
                 const op2 = ops[randomInt(0, 1)];
-                const expr = `${a} ${op1} ${b} ${op2} ${c}`;
+                const expr = `${a}${op1}${b}${op2}${c}`;
 
                 if (validResult(expr)) {
-                    problems.push(expr + ' =');
+                    problems.push(expr + ' = ');
                     answers.push(calculateExpr(expr));
                 }
             }
@@ -262,6 +270,7 @@
                 const rand = Math.random() * 100;
                 let op, expr;
 
+                // 【关键】题型比例: 加法10% 减法10% 乘法40% 除法40%
                 if (rand < 10) { // 加法 10%
                     op = '+';
                     const a = randomInt(20, 250);
@@ -282,17 +291,17 @@
                 } else { // 除法 40%
                     op = '÷';
                     const b = randomInt(2, 15);
-                    const quotient = randomInt(2, 30);
+                    const quotient = randomInt(2, 30); // 商的范围
                     const a = b * quotient;
-                    if (a <= 450) {
+                    if (a <= 450) { // 确保被除数不超过450
                         expr = `${a} ÷ ${b}`;
                     } else {
-                        continue;
+                        continue; // 跳过这次循环
                     }
                 }
 
                 if (validResult(expr)) {
-                    problems.push(expr + ' =');
+                    problems.push(expr + ' = ');
                     answers.push(calculateExpr(expr));
                 }
             }
@@ -301,18 +310,18 @@
 
         function generateProblems() {
             const dateStr = getDateString();
-            document.getElementById('title').textContent = `二年级口算题（450以内） — ${dateStr}`;
+            document.getElementById('title').textContent = `二年级口算题 (450以内) - ${dateStr}`;
 
             const mixed = generateMixedProblem();
             const normal = generateNormalProblems();
 
             // 补足数量
             while (mixed.problems.length < 20) {
-                mixed.problems.push("50 + 50 + 50 =");
+                mixed.problems.push("50 + 50 + 50 = ");
                 mixed.answers.push(150);
             }
             while (normal.problems.length < 80) {
-                normal.problems.push("50 + 50 =");
+                normal.problems.push("50 + 50 = ");
                 normal.answers.push(100);
             }
 
@@ -321,6 +330,7 @@
             let mIdx = 0, nIdx = 0;
 
             for (let i = 0; i < 100; i++) {
+                // 每 5 题插入 1 个混合运算题目
                 if (i % 5 === 0 && mIdx < 20) {
                     allProblems.push(mixed.problems[mIdx]);
                     allAnswers.push(mixed.answers[mIdx]);
@@ -332,26 +342,17 @@
                 }
             }
 
-            const grid1 = document.getElementById('grid-part-1');
-            const grid2 = document.getElementById('grid-part-2');
-            grid1.innerHTML = '';
-            grid2.innerHTML = '';
-
-            // Part 1: 75 problems (5 columns * 15 rows)
-            for (let i = 0; i < 75; i++) {
-                const item = document.createElement('div');
-                item.className = 'whitespace-nowrap';
-                item.textContent = allProblems[i] || "";
-                grid1.appendChild(item);
+            // 渲染HTML
+            let html = '';
+            for (let i = 0; i < 100; i += 5) {
+                html += '<div class="problem-line">';
+                for (let j = 0; j < 5; j++) {
+                    const p = allProblems[i + j] || "";
+                    html += `<div class="problem">${p}</div>`;
+                }
+                html += '</div>';
             }
-
-            // Part 2: 25 problems (5 columns * 5 rows)
-            for (let i = 75; i < 100; i++) {
-                const item = document.createElement('div');
-                item.className = 'whitespace-nowrap';
-                item.textContent = allProblems[i] || "";
-                grid2.appendChild(item);
-            }
+            document.getElementById('problems').innerHTML = html;
 
             // 控制台打印答案
             console.clear();
@@ -360,6 +361,7 @@
 
             for(let i = 0; i < 100; i += 5) {
                 const rowAnswers = allAnswers.slice(i, i + 5);
+                // 使用制表符对齐,方便查看
                 console.log(rowAnswers.join('\t\t'));
             }
             console.log('-----------------------------------');
