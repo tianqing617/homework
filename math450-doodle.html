@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>二年级450以内口算题 - Math Worksheet</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&amp;family=Ma+Shan+Zheng&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <style data-purpose="page-layout">
+        body {
+            background-color: #f8f9fa;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            font-family: "Nunito", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+        .page-container {
+            width: 210mm;
+            min-height: 297mm;
+            background: #ffffff;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .page-container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+    <style data-purpose="doodle-styles">
+        .hand-drawn-border {
+            border: 2px solid #2d2a26;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            background-color: #fffaf0;
+            cursor: pointer;
+        }
+        .header-banner {
+            position: relative;
+            display: inline-block;
+            padding: 8px 60px;
+            border-top: 3px solid #2d2a26;
+            border-bottom: 3px solid #2d2a26;
+            background: #fff;
+        }
+        .header-banner::before,
+        .header-banner::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            bottom: -3px;
+            width: 30px;
+            border: 3px solid #2d2a26;
+            z-index: -1;
+        }
+        .header-banner::before {
+            left: -15px;
+            border-right: none;
+            clip-path: polygon(100% 0, 0 50%, 100% 100%);
+            background: #fff;
+        }
+        .header-banner::after {
+            right: -15px;
+            border-left: none;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+            background: #fff;
+        }
+        .hand-underline {
+            border-bottom: 3px solid #2d2a26;
+            border-radius: 4px 2px 5px 3px/2px 4px 3px 2px;
+            display: inline-block;
+            min-width: 100px;
+        }
+        .playful-font {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+    </style>
+    <style data-purpose="decorative-elements">
+        .doodle {
+            position: absolute;
+            pointer-events: none;
+        }
+        .dashed-divider {
+            border-top: 3px dashed #2d2a26;
+            margin: 20px 0;
+            width: 100%;
+        }
+        .math-text {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.05rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container" id="printable-area">
+        <!-- Top Controls -->
+        <div class="no-print flex justify-center gap-4 mb-8">
+            <button class="hand-drawn-border px-6 py-2 flex items-center gap-3 hover:bg-orange-50 transition-colors shadow-sm" onclick="generateProblems()">
+                <svg fill="none" height="24" stroke="#a67c52" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                    <path d="M21 3v5h-5"></path>
+                </svg>
+                <div class="text-left leading-tight">
+                    <div class="font-bold text-sm text-gray-800">刷新题目</div>
+                    <div class="text-xs text-gray-500">(Refresh)</div>
+                </div>
+            </button>
+            <button class="hand-drawn-border px-6 py-2 flex items-center gap-3 hover:bg-orange-50 transition-colors shadow-sm" onclick="window.print()">
+                <svg fill="none" height="24" stroke="#a67c52" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect height="8" width="12" x="6" y="14"></rect>
+                </svg>
+                <div class="text-left leading-tight">
+                    <div class="font-bold text-sm text-gray-800">打印练习</div>
+                    <div class="text-xs text-gray-500">(Print)</div>
+                </div>
+            </button>
+        </div>
+
+        <!-- SVG Doodles -->
+        <svg class="doodle" fill="none" style="top: 110px; left: 160px; width: 50px; height: 50px;" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 50C25 35 35 25 50 25C65 25 75 35 75 50C75 65 65 80 50 80C35 80 25 65 25 50Z" fill="#fff" stroke="#2d2a26" stroke-width="2"></path>
+            <path d="M35 35 Q40 30 45 35 M65 35 Q60 30 55 35" fill="none" stroke="#2d2a26" stroke-width="2"></path>
+            <circle cx="40" cy="45" fill="#fff" r="6" stroke="#2d2a26" stroke-width="2"></circle>
+            <circle cx="60" cy="45" fill="#fff" r="6" stroke="#2d2a26" stroke-width="2"></circle>
+            <circle cx="40" cy="45" fill="#2d2a26" r="2"></circle>
+            <circle cx="60" cy="45" fill="#2d2a26" r="2"></circle>
+            <path d="M47 52 L50 58 L53 52 Z" fill="#fff" stroke="#2d2a26" stroke-width="1.5"></path>
+            <path d="M30 25 L25 15 L35 20 M70 25 L75 15 L65 20" fill="none" stroke="#2d2a26" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            <path d="M40 70 Q50 75 60 70" fill="none" stroke="#2d2a26" stroke-width="1.5"></path>
+            <path d="M35 80 L30 85 M40 80 L35 85 M65 80 L70 85 M60 80 L65 85" stroke="#2d2a26" stroke-linecap="round" stroke-width="2"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="top: 90px; right: 30px; width: 70px; height: 70px;" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" fill="#ffd54f" r="18" stroke="#2d2a26" stroke-width="2.5"></circle>
+            <path d="M50 15Q52 20 50 25M50 75Q48 80 50 85M15 50Q20 48 25 50M75 50Q80 52 85 50M25 25Q30 28 32 32M68 68Q72 70 75 75M25 75Q28 70 32 68M68 32Q70 28 75 25" stroke="#2d2a26" stroke-linecap="round" stroke-width="2.5"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="top: 100px; left: 50px; width: 80px; height: 50px;" viewbox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 45C10 45 5 35 10 25C15 15 25 15 30 20C35 5 55 5 65 15C75 5 95 15 90 35C95 45 85 55 75 45L20 45Z" fill="white" stroke="#2d2a26" stroke-linejoin="round" stroke-width="3"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="top: 120px; right: 120px; width: 90px; height: 55px;" viewbox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 45C10 45 5 35 10 25C15 15 25 15 30 20C35 5 55 5 65 15C75 5 95 15 90 35C95 45 85 55 75 45L20 45Z" fill="white" stroke="#2d2a26" stroke-linejoin="round" stroke-width="3"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="top: 190px; left: 20px; width: 30px; height: 30px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 5L30 18H45L33 26L37 40L25 32L13 40L17 26L5 18H20L25 5Z" fill="#ffd54f" stroke="#2d2a26" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="top: 220px; right: 20px; width: 30px; height: 30px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 5L30 18H45L33 26L37 40L25 32L13 40L17 26L5 18H20L25 5Z" fill="#ffd54f" stroke="#2d2a26" stroke-linejoin="round" stroke-width="2"></path>
+            <path d="M45 25C55 35 60 45 50 55" fill="none" stroke="#2d2a26" stroke-width="2"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="bottom: 100px; right: 30px; width: 25px; height: 25px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 5L30 18H45L33 26L37 40L25 32L13 40L17 26L5 18H20L25 5Z" fill="#ffd54f" stroke="#2d2a26" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="bottom: 60px; left: 40px; width: 40px; height: 40px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" fill="#f5a623" r="15" stroke="#2d2a26" stroke-width="2"></circle>
+            <path d="M5 25H10M40 25H45M25 5V10M25 40V45" stroke="#2d2a26" stroke-width="2"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="bottom: 120px; right: 20px; width: 25px; height: 25px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10 L40 40 M10 40 L40 10" stroke="#7bacc0" stroke-linecap="round" stroke-width="4"></path>
+        </svg>
+        <svg class="doodle" fill="none" style="bottom: 20px; left: 80px; width: 30px; height: 30px;" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <polygon fill="#f5a623" points="25,10 45,40 5,40" stroke="#2d2a26" stroke-linejoin="round" stroke-width="2"></polygon>
+        </svg>
+
+        <!-- Header Section -->
+        <div class="text-center mb-6 pt-6">
+            <div class="header-banner">
+                <h1 id="title" class="text-2xl font-bold playful-font tracking-wide text-gray-900">
+                    二年级口算题（450以内）
+                </h1>
+            </div>
+        </div>
+        
+        <!-- Math Problems Grid -->
+        <div class="flex flex-col">
+            <div class="grid grid-cols-5 gap-x-6 gap-y-3 text-[1.05rem] math-text" id="grid-part-1" style="grid-template-rows: repeat(15, minmax(0, 1fr)); grid-auto-flow: column;"></div>
+            <div class="dashed-divider my-6 w-full"></div>
+            <div class="grid grid-cols-5 gap-x-6 gap-y-3 text-[1.05rem] math-text" id="grid-part-2" style="grid-template-rows: repeat(5, minmax(0, 1fr)); grid-auto-flow: column;"></div>
+        </div>
+    </div>
+
+    <script data-purpose="math-generator">
+        function getDateString() {
+            const now = new Date();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${month}${day}`;
+        }
+
+        // 计算表达式结果
+        function calculateExpr(expr) {
+            try {
+                const safeExpr = expr.replace(/×/g, '*').replace(/÷/g, '/');
+                return eval(safeExpr);
+            } catch (e) {
+                return 0;
+            }
+        }
+
+        // 验证结果是否在有效范围内 (0 到 450,且为整数)
+        function validResult(expr) {
+            try {
+                const result = calculateExpr(expr);
+                return typeof result === 'number' && result >= 0 && result <= 450 && Number.isInteger(result);
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // 生成混合运算 (三元算式)
+        function generateMixedProblem() {
+            const problems = [];
+            const answers = [];
+            let attempts = 0;
+            while (problems.length < 20 && attempts < 1000) {
+                attempts++;
+                const a = randomInt(20, 250);
+                const b = randomInt(10, 200);
+                const c = randomInt(10, 100);
+                const ops = ['+', '-'];
+                const op1 = ops[randomInt(0, 1)];
+                const op2 = ops[randomInt(0, 1)];
+                const expr = `${a} ${op1} ${b} ${op2} ${c}`;
+
+                if (validResult(expr)) {
+                    problems.push(expr + ' =');
+                    answers.push(calculateExpr(expr));
+                }
+            }
+            return { problems, answers };
+        }
+
+        // 生成普通运算 【题型比例: 加法10% 减法10% 乘法40% 除法40%】
+        function generateNormalProblems() {
+            const problems = [];
+            const answers = [];
+            let attempts = 0;
+            while (problems.length < 80 && attempts < 2000) {
+                attempts++;
+                const rand = Math.random() * 100;
+                let op, expr;
+
+                if (rand < 10) { // 加法 10%
+                    op = '+';
+                    const a = randomInt(20, 250);
+                    const b = randomInt(20, 200);
+                    expr = `${a} + ${b}`;
+                } else if (rand < 20) { // 减法 10%
+                    op = '-';
+                    const a = randomInt(30, 450);
+                    const b = randomInt(20, 450);
+                    const max = Math.max(a, b);
+                    const min = Math.min(a, b);
+                    expr = `${max} - ${min}`;
+                } else if (rand < 60) { // 乘法 40%
+                    op = '×';
+                    const a = randomInt(2, 25);
+                    const b = randomInt(2, 18);
+                    expr = `${a} × ${b}`;
+                } else { // 除法 40%
+                    op = '÷';
+                    const b = randomInt(2, 15);
+                    const quotient = randomInt(2, 30);
+                    const a = b * quotient;
+                    if (a <= 450) {
+                        expr = `${a} ÷ ${b}`;
+                    } else {
+                        continue;
+                    }
+                }
+
+                if (validResult(expr)) {
+                    problems.push(expr + ' =');
+                    answers.push(calculateExpr(expr));
+                }
+            }
+            return { problems, answers };
+        }
+
+        function generateProblems() {
+            const dateStr = getDateString();
+            document.getElementById('title').textContent = `二年级口算题（450以内） — ${dateStr}`;
+
+            const mixed = generateMixedProblem();
+            const normal = generateNormalProblems();
+
+            // 补足数量
+            while (mixed.problems.length < 20) {
+                mixed.problems.push("50 + 50 + 50 =");
+                mixed.answers.push(150);
+            }
+            while (normal.problems.length < 80) {
+                normal.problems.push("50 + 50 =");
+                normal.answers.push(100);
+            }
+
+            const allProblems = [];
+            const allAnswers = [];
+            let mIdx = 0, nIdx = 0;
+
+            for (let i = 0; i < 100; i++) {
+                if (i % 5 === 0 && mIdx < 20) {
+                    allProblems.push(mixed.problems[mIdx]);
+                    allAnswers.push(mixed.answers[mIdx]);
+                    mIdx++;
+                } else {
+                    allProblems.push(normal.problems[nIdx]);
+                    allAnswers.push(normal.answers[nIdx]);
+                    nIdx++;
+                }
+            }
+
+            const grid1 = document.getElementById('grid-part-1');
+            const grid2 = document.getElementById('grid-part-2');
+            grid1.innerHTML = '';
+            grid2.innerHTML = '';
+
+            // Part 1: 75 problems (5 columns * 15 rows)
+            for (let i = 0; i < 75; i++) {
+                const item = document.createElement('div');
+                item.className = 'whitespace-nowrap';
+                item.textContent = allProblems[i] || "";
+                grid1.appendChild(item);
+            }
+
+            // Part 2: 25 problems (5 columns * 5 rows)
+            for (let i = 75; i < 100; i++) {
+                const item = document.createElement('div');
+                item.className = 'whitespace-nowrap';
+                item.textContent = allProblems[i] || "";
+                grid2.appendChild(item);
+            }
+
+            // 控制台打印答案
+            console.clear();
+            console.log(`二年级口算题 (450以内) - ${dateStr}`);
+            console.log('-----------------------------------');
+
+            for(let i = 0; i < 100; i += 5) {
+                const rowAnswers = allAnswers.slice(i, i + 5);
+                console.log(rowAnswers.join('\t\t'));
+            }
+            console.log('-----------------------------------');
+        }
+
+        // 初始化
+        window.onload = generateProblems;
+    </script>
+</body>
+</html>
