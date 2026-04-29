@@ -345,6 +345,9 @@
                 const rowAnswers = allAnswers.slice(i, i + 5);
                 // 使用制表符对齐,方便查看
                 console.log(rowAnswers.join('\t\t'));
+                if (i === 70) { // 第15行 (索引 14 * 5 = 70)
+                    console.log('-----------------------------------');
+                }
             }
             console.log('-----------------------------------');
         }
